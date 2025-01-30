@@ -1,0 +1,27 @@
+{
+	"name": "shop-maestro/conductor",
+	"description": "Basis of every self-respecting Shop Maestro plugin",
+	"license": "GPL-2.0-or-later",
+	"authors": [
+		{
+			"name": "Shop Maestro",
+			"email": "info@shop-maestro.com"
+		}
+	],
+	"minimum-stability": "dev",
+	"prefer-stable": true,
+	"autoload": {
+		"psr-4": {
+			"ShopMaestro\\Conductor\\": "src/"
+		},
+		"files": [
+			"src/functions.php"
+		]
+	},
+	"require": {
+		"php": ">=7.4",
+		"illuminate/collections": "^8.83",
+		"illuminate/database": "^8.83",
+		"yahnis-elsts/plugin-update-checker": "^5.5"
+	}
+}
