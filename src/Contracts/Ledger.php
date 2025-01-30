@@ -1,6 +1,6 @@
 <?php
 
-namespace Conductor\Contracts;
+namespace ShopMaestro\Conductor\Contracts;
 
 /**
  * A ledger class basically needs to keep stuff in an array in memory

@@ -1,15 +1,15 @@
 <?php
 
-namespace Conductor\Routing;
+namespace ShopMaestro\Conductor\Routing;
 
-use Conductor\Contracts\Ledger;
+use ShopMaestro\Conductor\Contracts\Ledger;
 
 class Routes extends Ledger{
 
 	/**
 	 * Returns the current route
 	 */
-	public function current(): string {
+	public function current(): bool {
 		
 		
 		return false;

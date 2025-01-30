@@ -1,8 +1,8 @@
 <?php
 
-namespace Conductor\Updates;
+namespace ShopMaestro\Conductor\Updates;
 
-use Conductor\Contracts\Ledger;
+use ShopMaestro\Conductor\Contracts\Ledger;
 
 class Plugins extends Ledger{
 

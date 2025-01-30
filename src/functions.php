@@ -7,7 +7,7 @@ use ShopMaestro\Conductor\Conductor;
 
 if( ! function_exists( 'conductor' ) ) {
 	function conductor(){
-		Conductor::instance();
+		return Conductor::instance();
 	}
 }
 
@@ -37,8 +37,24 @@ if ( ! function_exists( 'conductor_get_route' ) ) {
 	/**
 	 * Get a route and construct a url from it.
 	 */
-	function conductor_get_route( string $route_name ): ?string {
-		conductor()->routes()->get( $route_name );
+	function conductor_get_route( string $route_name ): ?array {
+		return conductor()->routes()->get( $route_name );
+	}
+}
+
+
+if ( ! function_exists( 'conductor_get_route_url' ) ) {
+
+	/**
+	 * Get a route and construct a url from it.
+	 */
+	function conductor_get_route_url( string $route_name ): ?string {
+		$route = conductor_get_route( $route_name );
+		if( $route['method'] !== 'GET' ){
+			return add_query_arg( 'request', 'shop_maestro_'.$route_name, admin_url() );
+		}else{
+			return add_query_arg( 'page', 'shop_maestro_'.$route_name, admin_url('admin.php') );
+		}
 	}
 }
 
@@ -58,7 +74,7 @@ if ( ! function_exists( 'conductor_current_route' ) ) {
 	 * Returns the current route, if available.
 	 */
 	function conductor_current_route(): string {
-		return conductor()->routes->current();
+		return conductor()->routes()->current();
 	}
 }
 
@@ -67,8 +83,10 @@ if ( ! function_exists( 'conductor_is_route' ) ) {
 	/**
 	 * Check if the string provided matches the current route.
 	 */
-	function conductor_is_route( string $route_name ): bool {
-		return ( conductor_current_route() === $route_name );
+	function is_conductor_route( string $route_name ): bool {
+		return true;
+
+		//return ( conductor_current_route() === $route_name );
 	}
 }
 
