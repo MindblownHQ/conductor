@@ -7,7 +7,13 @@ use ShopMaestro\Conductor\Conductor;
 
 if( ! function_exists( 'conductor' ) ) {
 	function conductor(){
-		return Conductor::instance();
+		global $conductor;
+		if ( is_null( $conductor ) ){
+			$GLOBALS['conductor'] = new Conductor();
+			return $GLOBALS['conductor'];
+		}
+
+		return $conductor;
 	}
 }
 
