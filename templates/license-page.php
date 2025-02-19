@@ -6,9 +6,6 @@
 			<div class="wsh-tabs__wrapper">
 				<nav class="wsh-tabs__tabs" role="tablist">				
 				<?php 
-				$first_key = array_keys( $plugins )[0];
-				$active_plugin = ( isset( $_GET['plugin'] ) ? $_GET['plugin'] : $first_key );
-				$license_key = get_option( $active_plugin.'_license_key', '' );
 
 				// Render our license tabs
 				foreach( $plugins as $key => $plugin ){
@@ -31,8 +28,17 @@
                         <?php conductor_nonce_field('shop_maestro_licenses_save'); ?>
 						<div class="field-wrapper">
 							<label for="license_key"><?php esc_html_e( 'License key', 'shop_maestro_conductor' );?></label>
-							<input id="license_key" name="license_key" value="<?php echo $license_key;?>"/>
+							<input id="license_key" name="license_key" value="<?php echo $license['key'];?>"/>
+							<?php echo $license['icon'];?>
 						</div>
+						<?php 
+						if( !is_null( $license['expires'] ) ){
+							echo '<datetime class="expires" datetime="'.$license['expires'].'">';
+								echo '<span>'.__( 'Expires on', 'shop_maestro_conductor' );
+								echo '&nbsp';
+								echo date_i18n( 'l j F Y', strtotime( $license['expires'] ) );
+							echo '</datetime>';
+						}?>
 						<button class="button button-primary"><?php esc_html_e('Save settings', 'wooping-shop-health'); ?></button>
                     </form>
                 </section>
