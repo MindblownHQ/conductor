@@ -36,11 +36,16 @@ class PrefixDependenciesPlugin implements PluginInterface, EventSubscriberInterf
         $composer = $event->getComposer();
         $eventDispatcher = $composer->getEventDispatcher();
     
-        $currentDir = getcwd();
-        $io->write("<info>🔥 Current Working Directory: $currentDir</info>");
+        $io->write("<info>🔥 Current Working Directory: " . getcwd() . "</info>");
     
         try {
-            // Dispatching the script
+            // Set working directory to Conductor's directory
+            chdir(__DIR__ . '/../..'); // Navigate to vendor/shop-maestro/conductor
+    
+            $io->write("<info>🚀 Changing directory to: " . getcwd() . "</info>");
+            $io->write("<info>🚀 Dispatching 'prefix-dependencies' script from Conductor's directory...</info>");
+    
+            // Dispatch the script inside Conductor
             $eventDispatcher->dispatchScript('prefix-dependencies', $event->isDevMode());
     
             $io->write("<info>✅ 'prefix-dependencies' script executed successfully!</info>");
@@ -48,5 +53,6 @@ class PrefixDependenciesPlugin implements PluginInterface, EventSubscriberInterf
             $io->write("<error>❌ Error dispatching script: " . $e->getMessage() . "</error>");
         }
     }
+    
     
 }
