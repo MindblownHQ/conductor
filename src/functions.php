@@ -5,7 +5,7 @@
 
 use ShopMaestro\Conductor\Routing\Routes;
 use ShopMaestro\Conductor\Updates\Plugins;
-use ShopMaestro\Conductor\Routing\Settings;
+use ShopMaestro\Conductor\Admin\Settings;
 use ShopMaestro\Conductor\Conductor;
 
 if( ! function_exists( 'conductor' ) ) {

@@ -25,7 +25,7 @@
                 <section class="wsh-tabs-pane__content">
                     <form class="panel" action="<?php echo conductor_get_route_url('shop_maestro_settings_save'); ?>" method="POST">
 						<input type="hidden" name="shop_maestro_settings_key" value="<?php echo $active_tab;?>">
-                        <?php echo conductor_nonce_field('shop_maestro_settings_save'); ?>
+                        <?php conductor_nonce_field('shop_maestro_settings_save'); ?>
 						<?php echo $settings->display_tab( $active_tab );?>
                         <button class="button button-primary"><?php esc_html_e('Save settings', 'wooping-shop-health'); ?></button>
                     </form>

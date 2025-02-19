@@ -15,6 +15,12 @@ abstract class Ledger{
 	 * Regiser an item to the ledger
 	 */
 	public function register( string $key, array $params = [] ): void {
+
+		// always set a priority of 10, 20, 30...
+		if( !isset( $params['priority'] ) ){
+			$params['priority'] = ( ( sizeof( $this->ledger ) + 1 ) * 10 );
+		}
+
 		$this->ledger[ $key ] = $params;
 	}
 
@@ -40,5 +46,39 @@ abstract class Ledger{
 		}
 
 		return $this->ledger;
+	}
+
+	/**
+	 * Sort this ledger on a specific field
+	 */
+	public function sort_by( string $field = 'priority', string $order = 'ASC' ): array {
+
+		$data = $this->ledger;
+		$key = array_keys( $data );
+        $key = $key[0];
+        $object = false;
+    	
+		uasort( $data, function( $a,$b ) use ( $object, $order, $field ){
+
+            if( is_bool( $a ) || is_bool( $b ) ){
+                return -1;
+            }
+
+            if( $object ){
+                if( $order == null || $order == 'ASC' ){
+        	  	    return strnatcmp( $a->{$field}, $b->{$field} );
+                }else{
+	  		        return strnatcmp( $b->{$field}, $a->{$field} );
+                }
+            }else{
+                if( $order == null || $order == 'ASC' ){
+                    return strnatcmp( $a[$field], $b[$field] );
+                }else{
+                    return strnatcmp( $b[$field], $a[$field] );
+                }
+            }
+        });
+
+		return $data;
 	}
 }

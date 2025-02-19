@@ -2,10 +2,12 @@
 namespace ShopMaestro\Conductor;
 
 use ShopMaestro\Conductor\Routing\Routes;
-use ShopMaestro\Conductor\Routing\Settings;
 use ShopMaestro\Conductor\Updates\Plugins;
 use ShopMaestro\Conductor\Updates\Updater;
-use ShopMaestro\Conductor\Routing\Admin;
+
+use ShopMaestro\Conductor\Admin\Request;
+use ShopMaestro\Conductor\Admin\Settings;
+use ShopMaestro\Conductor\Admin\Navigation;
 
 class Conductor{
 
@@ -43,7 +45,8 @@ class Conductor{
 	 * Hook into WordPress for certain tasks
 	 */
 	public function init_hooks(): void {
-		( new Admin() )->register_hooks();
+		( new Request() )->register_hooks();
+		( new Navigation() )->register_hooks();
 		( new Updater() )->register_hooks();
 	}
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace ShopMaestro\Conductor\Routing;
+namespace ShopMaestro\Conductor\Admin;
 
 use Exception;
 

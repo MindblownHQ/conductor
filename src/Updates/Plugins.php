@@ -48,6 +48,16 @@ class Plugins extends Ledger{
 		});
 	}
 
+
+	/**
+	 * Return all registered premium plugins with Conductor
+	 */
+	public function premium(): array {
+		return array_filter( $this->ledger, function( $plugin ){
+			return ( isset( $plugin['is_premium'] ) && $plugin['is_premium'] );
+		});
+	}
+
 	/**
 	 * Send activation data back to Wooping
 	 */

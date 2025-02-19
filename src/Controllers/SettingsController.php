@@ -27,7 +27,7 @@ class SettingsController extends Controller{
 		$key = $_POST['shop_maestro_settings_key'] ?? null;
 		$settings = conductor()->settings();
 		
-		// Check if we have a settings key and a valid nonce
+		// Check if we have a settings key
 		if( !is_null( $key ) ){
 			
 			// Remove nonce and key:
