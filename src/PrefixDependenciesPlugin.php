@@ -30,16 +30,22 @@ class PrefixDependenciesPlugin implements PluginInterface, EventSubscriberInterf
 		);
 	}
 
-	public function prefixDependencies( Event $event ) {
-		$io = $event->getIO();
-		$io->write( "<info>Dispatching 'prefix-dependencies' script...</info>" );
-
-		// Get Composer's event dispatcher
-		$eventDispatcher = $event->getComposer()->getEventDispatcher();
-
-		// Dispatch the custom script
-		$eventDispatcher->dispatchScript( 'prefix-dependencies', $event->isDevMode() );
-
-		$io->write( "<info>'prefix-dependencies' script executed.</info>" );
-	}
+    public function prefixDependencies(Event $event)
+    {
+        $io = $event->getIO();
+        $composer = $event->getComposer();
+        $eventDispatcher = $composer->getEventDispatcher();
+    
+        $io->write("<info>🚀 Dispatching 'prefix-dependencies' script inside Conductor...</info>");
+    
+        try {
+            // Run the script defined in Conductor's composer.json
+            $eventDispatcher->dispatchScript('prefix-dependencies', $event->isDevMode());
+    
+            $io->write("<info>✅ 'prefix-dependencies' script executed successfully!</info>");
+        } catch (\Exception $e) {
+            $io->write("<error>❌ Error dispatching script: " . $e->getMessage() . "</error>");
+        }
+    }
+    
 }
