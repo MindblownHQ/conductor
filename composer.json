@@ -28,5 +28,13 @@
 		"yahnis-elsts/plugin-update-checker": "^5.5",
 		"humbug/php-scoper": "^0.18.7",
 		"composer-plugin-api": "^2.0"
-	}
+	},
+    "scripts": {
+        "prefix-dependencies": [
+            "@php ./vendor/humbug/php-scoper/bin/php-scoper add-prefix --prefix=Shop_Maestro_Vendor --output-dir=./vendor_prefixed/symfony/dependency-injection --config=config/php-scoper/dependency-injection.inc.php --force --quiet"
+        ]
+    },
+    "extra": {
+        "class": "Conductor\\PrefixDependenciesPlugin"
+    }
 }
