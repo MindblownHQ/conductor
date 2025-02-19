@@ -36,10 +36,11 @@ class PrefixDependenciesPlugin implements PluginInterface, EventSubscriberInterf
         $composer = $event->getComposer();
         $eventDispatcher = $composer->getEventDispatcher();
     
-        $io->write("<info>🚀 Dispatching 'prefix-dependencies' script inside Conductor...</info>");
+        $currentDir = getcwd();
+        $io->write("<info>🔥 Current Working Directory: $currentDir</info>");
     
         try {
-            // Run the script defined in Conductor's composer.json
+            // Dispatching the script
             $eventDispatcher->dispatchScript('prefix-dependencies', $event->isDevMode());
     
             $io->write("<info>✅ 'prefix-dependencies' script executed successfully!</info>");
