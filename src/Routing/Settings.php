@@ -74,6 +74,20 @@ class Settings{
 	}
 
 	/**
+	 * Return the active tab
+	 *
+	 * @return string
+	 */
+	public function active_tab(): string{
+		if( isset( $_GET['tab'] ) ){
+			return $_GET['tab'];
+		}
+
+		$first = array_keys( $this->tabs() )[0];
+		return $first;
+	}
+
+	/**
 	 * Display a tab in our settings
 	 */
 	public function display_tab( string $key ): string
