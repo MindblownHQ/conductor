@@ -16,9 +16,6 @@
 		},
 		"files": [
 			"src/functions.php"
-		],
-		"classmap": [
-			"vendor_prefixed"
 		]
 	},
 	"require": {
