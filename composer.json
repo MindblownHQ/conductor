@@ -29,7 +29,7 @@
 	},
     "scripts": {
         "prefix-dependencies": [
-            "@php ./vendor/humbug/php-scoper/bin/php-scoper add-prefix --prefix=Shop_Maestro_Vendor --output-dir=./vendor_prefixed/ --config=config/php-scoper/dependency-injection.inc.php --force --quiet"
+            "@php vendor/humbug/php-scoper/bin/php-scoper add-prefix --prefix=Shop_Maestro_Vendor --output-dir=./vendor_prefixed/ --config=config/php-scoper/dependency-injection.inc.php --force --quiet"
         ]
     },
     "extra": {
