@@ -32,6 +32,6 @@
         ]
     },
     "extra": {
-        "class": "Conductor\\PrefixDependenciesPlugin"
+        "class": "ShopMaestro\\Conductor\\PrefixDependenciesPlugin"
     }
 }
