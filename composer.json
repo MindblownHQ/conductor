@@ -23,7 +23,6 @@
 		"illuminate/collections": "^8.83",
 		"illuminate/database": "^8.83",
 		"yahnis-elsts/plugin-update-checker": "^5.5",
-		"humbug/php-scoper": "^0.18.7",
-		"composer-plugin-api": "^2.0"
+		"humbug/php-scoper": "^0.18.7"
 	}
 }
