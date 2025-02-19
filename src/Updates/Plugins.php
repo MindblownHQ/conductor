@@ -16,12 +16,12 @@ class Plugins extends Ledger{
 		
 		// Do the default:
 		parent::register( $key, $params );
-			
+		
 		// Upon activation check if the data model is in order.
 		register_activation_hook( $params['file'], function() use ( $key, $params ){
 
 			// Log activation.
-			conductor()->plugins()->activated( $key, $params['version'] );
+			$this->activated( $key, $params['version'] );
 
 			// Run a callable if it's in the params.
 			if( isset( $params['on_activate'] ) && is_callable( $params['on_activate'] ) ){
@@ -36,14 +36,14 @@ class Plugins extends Ledger{
 		register_deactivation_hook( $params['file'], function() use ( $key, $params ){
 
 			// Log deactivation.
-			conductor()->plugins()->deactivated( $key, $params['version'] );
+			$this->deactivated( $key, $params['version'] );
 
 			// Run a callable if it's in the params.
 			if( isset( $params['on_deactivate'] ) && is_callable( $params['on_deactivate'] ) ){
 				call_user_func( $params['on_deactivate'] );
 			}
 
-			// Trigger an activation action.
+			// Trigger a deactivation action.
 			\do_action( 'conductor_deactivated_'. str_replace( '-', '_', $key ) );
 		});
 	}

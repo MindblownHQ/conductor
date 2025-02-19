@@ -2,6 +2,7 @@
 namespace ShopMaestro\Conductor;
 
 use ShopMaestro\Conductor\Routing\Routes;
+use ShopMaestro\Conductor\Routing\Settings;
 use ShopMaestro\Conductor\Updates\Plugins;
 use ShopMaestro\Conductor\Updates\Updater;
 use ShopMaestro\Conductor\Routing\Admin;
@@ -23,13 +24,18 @@ class Conductor{
 	 */
 	protected Plugins $plugins;
 
+	/**
+	 * The Conductor settings ledger
+	 */
+	protected Settings $settings;
 
 	/**
 	 * Init conductor, if the instance doesn't exist yet
 	 */
-	public function __construct(){
-		$this->routes 	= new Routes();
-		$this->plugins 	= new Plugins();
+	public function __construct( Routes $routes, Plugins $plugins, Settings $settings ){
+		$this->routes 	= $routes;
+		$this->plugins 	= $plugins;
+		$this->settings = $settings;
 		$this->init_hooks();
 	}
 
@@ -46,10 +52,6 @@ class Conductor{
 	 * Return the Plugins ledger
 	 */
 	public function plugins(): Plugins {
-		if( is_null( $this->plugins ) ){
-			$this->plugins = new Plugins();
-		}
-
 		return $this->plugins;
 	}
 
@@ -57,11 +59,13 @@ class Conductor{
 	 * Return the Routes ledger
 	 */
 	public function routes(): Routes {
-		if( is_null( $this->routes ) ){
-			$this->routes = new Routes();
-		}
-
 		return $this->routes;
 	}
 
+	/**
+	 * Return the Settings ledger
+	 */
+	public function settings(): Settings {
+		return $this->settings;
+	}
 }

@@ -60,6 +60,9 @@ class Updater implements Hookable {
 		}
 	}
 
+	/**
+	 * Register an update after it's done.
+	 */
 	public function register_update( WP_Upgrader $wp_upgrader, array $update_info ): void {
 
 		$plugins = conductor()->plugins()->get();
@@ -73,8 +76,7 @@ class Updater implements Hookable {
 				conductor()->plugins()->updated( $slug, $plugin['version'] );
 
 				// And run a hook that looks like "conductor_plugin_shop_health_updated"
-				$slug = str_replace( '-', '_', $slug );
-				do_action( 'conductor_plugin_'. $slug .'_updated', $update_info, $wp_upgrader );
+				do_action( 'conductor_updated_'.str_replace( '-', '_', $slug ), $wp_upgrader, $update_info );
 			}
 		}
 	}

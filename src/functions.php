@@ -3,17 +3,29 @@
  * Simple helper functions for shop health and other wooping plugins.
  */
 
+use ShopMaestro\Conductor\Routing\Routes;
+use ShopMaestro\Conductor\Updates\Plugins;
+use ShopMaestro\Conductor\Routing\Settings;
 use ShopMaestro\Conductor\Conductor;
 
 if( ! function_exists( 'conductor' ) ) {
+
 	function conductor(){
-		global $conductor;
-		if ( is_null( $conductor ) ){
-			$GLOBALS['conductor'] = new Conductor();
-			return $GLOBALS['conductor'];
+	
+		global $shop_maestro_conductor;
+		if ( is_null( $shop_maestro_conductor ) ){
+			
+			// Initiate conductor once
+			$GLOBALS['shop_maestro_conductor'] = new Conductor( 
+				new Routes(), 
+				new Plugins(),
+				new Settings()
+			);
+
+			return $GLOBALS['shop_maestro_conductor'];
 		}
 
-		return $conductor;
+		return $shop_maestro_conductor;
 	}
 }
 
@@ -51,15 +63,20 @@ if ( ! function_exists( 'conductor_get_route' ) ) {
 
 if ( ! function_exists( 'conductor_get_route_url' ) ) {
 
-	/**
+	/**conductor_current_route
 	 * Get a route and construct a url from it.
 	 */
 	function conductor_get_route_url( string $route_name ): ?string {
 		$route = conductor_get_route( $route_name );
+
+		if( empty( $route ) ){
+			return null;
+		} 
+		
 		if( $route['method'] !== 'GET' ){
-			return add_query_arg( 'request', 'shop_maestro_'.$route_name, admin_url() );
+			return add_query_arg( 'conductor_route', $route_name, admin_url() );
 		}else{
-			return add_query_arg( 'page', 'shop_maestro_'.$route_name, admin_url('admin.php') );
+			return add_query_arg( 'page', $route_name, admin_url('admin.php') );
 		}
 	}
 }
@@ -79,7 +96,7 @@ if ( ! function_exists( 'conductor_current_route' ) ) {
 	/**
 	 * Returns the current route, if available.
 	 */
-	function conductor_current_route(): string {
+	function conductor_current_route(): ?array {
 		return conductor()->routes()->current();
 	}
 }
@@ -104,7 +121,12 @@ if ( ! function_exists( 'conductor_template' ) ) {
 	 *
  	 * @phpcs:disable SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingTraversableTypeHintSpecification
 	 */
-	function conductor_template( string $template_name, array $attributes = [], $base_dir = SHOP_HEALTH_PATH ): void {
+	function conductor_template( string $template_name, array $attributes = [], $base_dir = null ): void {
+
+		// Look for our parent folder
+		if( is_null( $base_dir ) ){
+			$base_dir = dirname( __DIR__, 1 );
+		}
 
 		$template = str_replace( '.', '/', $template_name );
 		$file     = $base_dir . '/templates/' . $template . '.php';

@@ -28,6 +28,43 @@ class Router {
 		$controller->{$method}();
 	}
 
+
+	/**
+	 * Figure out if a route is valid
+	 *
+	 * @return boolean
+	 */
+	public static function is_valid_route( $route ): bool {
+		
+		// a route needs to be an array with a method and a callback
+		if( !is_array( $route ) || !isset( $route['method'] ) && !isset( $route['callback'] ) ){
+			return false;
+		}
+
+		// the method needs to match our current request
+		$method = ( strpos( $route['method'], ',' ) === false ? [ $route['method'] ] : explode( ',', $route['method'] ) );
+
+		if( !in_array( static::request_type(), $method )){
+			return false;
+		}
+
+		// if that checks out, our route is okay:
+		return true;
+	}
+
+
+	/**
+	 * Return the request type
+	 */
+	public static function request_type(): string {
+		if(	isset( $_SERVER['REQUEST_METHOD'] ) ){
+			return $_SERVER['REQUEST_METHOD'];
+		}
+
+		//assume it's a GET request otherwise:
+		return 'GET';
+	}
+
 	/**
 	 * Run our middleware, see if we're allowed to visit this route
 	 * 

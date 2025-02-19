@@ -16,7 +16,7 @@ abstract class Controller {
 	 *
 	 * @var array<string|array> $middleware
 	 */
-	protected static array $middleware = [ IsAllowed::class, ValidNonce::class ];
+	protected array $middleware = [ IsAllowed::class, ValidNonce::class ];
 
 	/**
 	 * Constructor
@@ -65,7 +65,6 @@ abstract class Controller {
 	public function validate_middleware( array $middleware ): bool {
 
 		$passes   = true;
-		$register = new MiddlewareRegister();
 
 		foreach ( $middleware as $instance ) {
 			// get the instance.
