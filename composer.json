@@ -2,7 +2,6 @@
 	"name": "shop-maestro/conductor",
 	"description": "Basis of every self-respecting Shop Maestro plugin",
 	"license": "GPL-2.0-or-later",
-	"type": "composer-plugin",
 	"authors": [
 		{
 			"name": "Shop Maestro",
@@ -29,7 +28,7 @@
 	},
     "scripts": {
         "prefix-dependencies": [
-            "../../../vendor/humbug/php-scoper/bin/php-scoper add-prefix --prefix=Shop_Maestro_Vendor --output-dir=../../../vendor_prefixed/ --config=config/php-scoper/dependency-injection.inc.php --force --quiet"
+            "vendor/humbug/php-scoper/bin/php-scoper add-prefix --prefix=Shop_Maestro_Vendor --output-dir=vendor_prefixed/ --config=config/php-scoper/dependency-injection.inc.php --force --quiet"
         ]
     },
     "extra": {
