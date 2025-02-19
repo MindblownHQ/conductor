@@ -14,9 +14,9 @@ return array(
 	 * For more see: https://github.com/humbug/php-scoper#finders-and-paths
 	 */
 	'finders'  => array(
-		Finder::create()->files()->in( '../../../vendor/illuminate/collections' ),
-		Finder::create()->files()->in( '../../../vendor/illuminate/database' ),
-		Finder::create()->files()->in( '../../../vendor/yahnis-elsts/plugin-update-checker' ),
+		Finder::create()->files()->in( 'vendor/illuminate/collections' ),
+		Finder::create()->files()->in( 'vendor/illuminate/database' ),
+		Finder::create()->files()->in( 'vendor/yahnis-elsts/plugin-update-checker' ),
 	),
 
 	/*
