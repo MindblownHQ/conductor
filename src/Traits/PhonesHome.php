@@ -15,7 +15,7 @@ trait PhonesHome {
 	/**
 	 * The url constants with which we communicate to the world outside.
 	 */
-	protected const API_URL = 'https://wooping.test/wp-json/wooping/v1/';
+	protected const API_URL = 'https://wooping.io/wp-json/wooping/v1/';
 
 
 	public function post_request( string $endpoint, array $params = [] ): array|\WP_Error {
