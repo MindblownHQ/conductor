@@ -70,11 +70,19 @@ class LicenseController extends Controller{
 			'site_url'  => \get_site_url(),
 		]);
 
+		if (is_wp_error($request)) {
+			return [
+				'message' => $request->get_error_message(),
+				'validated' => false,
+				'expires' => null
+			];
+		}
+
 		// Always return an array
 		return [
-			'message' => $request['error'],
-			'validated' => false,
-			'expires' => null
+			'message' => $request['message'],
+			'validated' => $request['validated'],
+			'expires' => $request['expires']
 		];
 	}
 }
