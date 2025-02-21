@@ -39,7 +39,6 @@ class LicenseController extends Controller{
 			$license_key = \sanitize_text_field( $_POST['license_key'] );
 			update_option( $plugin_name.'_license_key', $license_key );
 
-			// @todo: fix the remote license checking
 			// Fetch the remote license info, and save it locally
 			$remote_license = $this->get_remote_license_info( $plugin_name, $license_key );
 			update_option( $plugin_name.'_license_validated', $remote_license['validated'] );
@@ -59,10 +58,12 @@ class LicenseController extends Controller{
 	 */
 	public function get_remote_license_info( string $plugin_name, string $license_key ): array {
 	
+		// @temp; remove this later
 		if( $plugin_name == 'socials' ){
 			$plugin_name = 'wooping-socials';			
 		}
 
+		// Verify our license at the API
 		$request = $this->post_request( 'verify-license', [
 			'plugin' => $plugin_name,
 			'license_key' => $license_key,
@@ -70,11 +71,15 @@ class LicenseController extends Controller{
 			'site_url'  => \get_site_url(),
 		]);
 
-		// Always return an array
+		// If we didn't get an error, we can return the result right away.
+		if( !isset( $request['error'] ) ){
+			return $request; 
+		}
+
+		// always return an array with some basic values otherwise.
 		return [
-			'message' => $request['error'],
-			'validated' => false,
-			'expires' => null
+			'expires' => null,
+			'verified' => false
 		];
 	}
 }

@@ -29,7 +29,6 @@ trait PhonesHome {
 				'Content-Type' => 'application/json',
 			]
 		]);
-		print_r( $params );
 		
 		// Check if we're not encountering an error.
 		if( is_wp_error( $request ) ){
