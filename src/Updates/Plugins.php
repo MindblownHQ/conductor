@@ -3,11 +3,11 @@
 namespace ShopMaestro\Conductor\Updates;
 
 use ShopMaestro\Conductor\Contracts\Ledger;
+use ShopMaestro\Conductor\Traits\PhonesHome;
 
 class Plugins extends Ledger{
 
-	protected const FEEDBACK_URL = 'https://wooping.io/wp-json/wooping/v1/';
-
+	use PhonesHome;
 
 	/**
 	 * Regiser an item to the ledger
@@ -91,8 +91,7 @@ class Plugins extends Ledger{
 	 */
 	public function activated( string $slug, string $version ): void {
 
-		$url = self::FEEDBACK_URL . 'plugin/activated';
-		\wp_remote_post( $url, $this->get_plugin_info( $slug, $version ) );
+		$this->post_request( 'plugin/activated', $this->get_plugin_info( $slug, $version ) );
 	}
 
 	/**
@@ -100,8 +99,7 @@ class Plugins extends Ledger{
 	 */
 	public function deactivated( string $slug, string $version ): void {
 
-		$url = self::FEEDBACK_URL . 'plugin/deactivated';
-		\wp_remote_post( $url, $this->get_plugin_info( $slug, $version ) );
+		$this->post_request( 'plugin/deactivated', $this->get_plugin_info( $slug, $version ) );
 	}
 
 	/**
@@ -112,8 +110,7 @@ class Plugins extends Ledger{
 	 */
 	public function updated( string $slug, string $version ): void {
 
-		$url = self::FEEDBACK_URL . 'plugin/updated';
-		\wp_remote_post( $url, $this->get_plugin_info( $slug, $version ) );
+		$this->post_request( 'plugin/updated', $this->get_plugin_info( $slug, $version ) );
 	}
 
 	/**

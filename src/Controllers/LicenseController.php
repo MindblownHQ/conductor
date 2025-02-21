@@ -2,9 +2,12 @@
 
 namespace ShopMaestro\Conductor\Controllers;
 
+use ShopMaestro\Conductor\Traits\PhonesHome;
 use ShopMaestro\Conductor\Contracts\Controller;
 
 class LicenseController extends Controller{
+
+	use PhonesHome;
 
 	/**
 	 * Display the licenses page
@@ -38,9 +41,9 @@ class LicenseController extends Controller{
 
 			// @todo: fix the remote license checking
 			// Fetch the remote license info, and save it locally
-			/*$remote_license = $this->get_remote_license_info( $plugin_name, $license_key );
+			$remote_license = $this->get_remote_license_info( $plugin_name, $license_key );
 			update_option( $plugin_name.'_license_validated', $remote_license['validated'] );
-			update_option( $plugin_name.'_license_expires', $remote_license['expires'] );*/
+			update_option( $plugin_name.'_license_expires', $remote_license['expires'] );
 		}
 
 		// Redirect back to the licenses page
@@ -49,7 +52,29 @@ class LicenseController extends Controller{
 	}
 
 
-	public function get_remote_license_info(){
-		
+	/**
+	 * Check the license with the wooping api remotely
+	 *
+	 * @return void
+	 */
+	public function get_remote_license_info( string $plugin_name, string $license_key ): array {
+	
+		if( $plugin_name == 'socials' ){
+			$plugin_name = 'wooping-socials';			
+		}
+
+		$request = $this->post_request( 'verify-license', [
+			'plugin' => $plugin_name,
+			'license_key' => $license_key,
+			'timestamp' => \time(),
+			'site_url'  => \get_site_url(),
+		]);
+
+		// Always return an array
+		return [
+			'message' => $request['error'],
+			'validated' => false,
+			'expires' => null
+		];
 	}
 }
