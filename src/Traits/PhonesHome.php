@@ -21,7 +21,7 @@ trait PhonesHome {
 	public function post_request( string $endpoint, array $params = [] ): array|\WP_Error {
 		
 		// Create the request url.
-		$url = apply_filters( 'shop-maestro/conductor/api-url', self::API_URL ) . $endpoint;
+		$url = apply_filters( 'shop-maestro/conductor/api-url', self::API_URL ) . $endpoint . '/' . $params['plugin'];
 		$request = wp_remote_post( $url, [
 			'body'    => json_encode( $params ),
 			'method'  => 'POST',
@@ -43,6 +43,8 @@ trait PhonesHome {
 
 		// Return the body
 		$json = wp_remote_retrieve_body( $request );
+
+		dd($json);
 
 		return json_decode( $json, true );
 	}
