@@ -44,8 +44,6 @@ trait PhonesHome {
 		// Return the body
 		$json = wp_remote_retrieve_body( $request );
 
-		dd($json);
-
 		return json_decode( $json, true );
 	}
 
