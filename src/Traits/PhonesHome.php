@@ -18,7 +18,7 @@ trait PhonesHome {
 	protected const API_URL = 'https://wooping.test/wp-json/wooping/v1/';
 
 
-	public function post_request( string $endpoint, array $params = [] ): array {
+	public function post_request( string $endpoint, array $params = [] ): array|\WP_Error {
 		
 		// Create the request url.
 		$url = self::API_URL . $endpoint;
@@ -29,15 +29,21 @@ trait PhonesHome {
 				'Content-Type' => 'application/json',
 			]
 		]);
-		print_r( $params );
 		
 		// Check if we're not encountering an error.
 		if( is_wp_error( $request ) ){
-			return [ 'error' => $request->get_error_message() ];
+			return $request;
+		}
+
+		// Confirm we're dealing with a JSON response
+		$content_type = wp_remote_retrieve_header($request, 'content-type');
+		if (!$content_type || stripos($content_type, 'application/json') === false) {
+			return new \WP_Error( 'invalid_response', 'Invalid response format - expected JSON' );
 		}
 
 		// Return the body
 		$json = wp_remote_retrieve_body( $request );
+
 		return json_decode( $json, true );
 	}
 
