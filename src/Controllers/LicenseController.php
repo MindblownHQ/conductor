@@ -71,15 +71,15 @@ class LicenseController extends Controller{
 			'site_url'  => \get_site_url(),
 		]);
 
-		// If we didn't get an error, we can return the result right away.
-		if( !isset( $request['error'] ) ){
-			return $request; 
+		if (is_wp_error($request)) {
+			return [
+				'message' => $request->get_error_message(),
+				'validated' => false,
+				'expires' => null
+			];
 		}
 
-		// always return an array with some basic values otherwise.
-		return [
-			'expires' => null,
-			'verified' => false
-		];
+		// Otherwise, we can just return the request wholesale.
+    	return $request; 
 	}
 }
