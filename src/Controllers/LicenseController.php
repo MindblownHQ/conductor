@@ -80,6 +80,6 @@ class LicenseController extends Controller{
 		}
 
 		// Otherwise, we can just return the request wholesale.
-    return $request; 
+    	return $request; 
 	}
 }
