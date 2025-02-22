@@ -27,7 +27,7 @@
 						<input type="hidden" name="shop_maestro_license_for" value="<?php echo $active_plugin;?>">
                         <?php conductor_nonce_field('shop_maestro_licenses_save'); ?>
 						<div class="field-wrapper">
-							<label for="license_key"><?php esc_html_e( 'License key', 'shop_maestro_conductor' );?></label>
+							<label for="license_key"><?php esc_html_e( 'License key', 'shop_maestro_conductor' );?></label><br/>
 							<input id="license_key" name="license_key" value="<?php echo $license['key'];?>"/>
 							<?php echo $license['icon'];?>
 						</div>
@@ -38,7 +38,7 @@
 								echo '&nbsp';
 								echo date_i18n( 'l j F Y', strtotime( $license['expires'] ) );
 							echo '</datetime>';
-						}?>
+						}?><br/><hr/><br/>
 						<button class="button button-primary"><?php esc_html_e('Save settings', 'wooping-shop-health'); ?></button>
                     </form>
                 </section>
