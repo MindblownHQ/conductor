@@ -41,7 +41,8 @@ class SettingsController extends Controller{
 		}
 
 		// Redirect back to the settings page
-		wp_redirect( conductor_get_route_url( 'shop_maestro_settings' ) );
+		$url = \add_query_arg( 'tab', $key, \conductor_get_route_url( 'shop_maestro_settings' ) );
+		wp_redirect( $url );
 		exit();
 	}
 }
