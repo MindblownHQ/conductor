@@ -1,0 +1,16 @@
+@use "settings/colors";
+@use "settings/spacing";
+@use "settings/keyframes";
+@use "settings/properties";
+
+@use "generic/reset";
+
+@use "components/wrap";
+@use "components/page-header";
+@use "components/widget-grid";
+@use "components/widget";
+
+.maestro-dashboard .wrap {
+	padding: var(--maestro--padding);
+}
+

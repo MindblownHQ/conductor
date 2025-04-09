@@ -1,0 +1,14 @@
+.maestro-dashboard {
+	.page-header {
+		background: var(--maestro--white);
+		position: sticky;
+		top: 0;
+		padding: var(--maestro--padding) calc( var(--maestro--padding) * 2 );
+		display: flex;
+	}
+
+	.page-title {
+		margin: 0;
+		font-size: 16px;
+	}
+}
