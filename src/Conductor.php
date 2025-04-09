@@ -1,6 +1,8 @@
 <?php
+
 namespace ShopMaestro\Conductor;
 
+use ShopMaestro\Conductor\Admin\Assets;
 use ShopMaestro\Conductor\Routing\Routes;
 use ShopMaestro\Conductor\Updates\Plugins;
 use ShopMaestro\Conductor\Updates\Updater;
@@ -31,13 +33,16 @@ class Conductor{
 	 */
 	protected Settings $settings;
 
+	protected string $plugin_folder;
+
 	/**
 	 * Init conductor, if the instance doesn't exist yet
 	 */
-	public function __construct( Routes $routes, Plugins $plugins, Settings $settings ){
-		$this->routes 	= $routes;
-		$this->plugins 	= $plugins;
-		$this->settings = $settings;
+	public function __construct( Routes $routes, Plugins $plugins, Settings $settings ) {
+		$this->routes        = $routes;
+		$this->plugins       = $plugins;
+		$this->settings      = $settings;
+
 		$this->init_hooks();
 	}
 
@@ -45,6 +50,7 @@ class Conductor{
 	 * Hook into WordPress for certain tasks
 	 */
 	public function init_hooks(): void {
+		( new Assets() )->register_hooks();
 		( new Request() )->register_hooks();
 		( new Navigation() )->register_hooks();
 		( new Updater() )->register_hooks();
