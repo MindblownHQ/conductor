@@ -4,11 +4,6 @@
  */
 
 use ShopMaestro\Conductor\Contracts\Widget;
-use ShopMaestro\Conductor\Widgets\Introduction;
-
-$widgets = apply_filters( 'shop-maestro/conductor/widgets', [
-	Introduction::class,
-] );
 
 ?>
 
@@ -23,14 +18,8 @@ $widgets = apply_filters( 'shop-maestro/conductor/widgets', [
 		<section class="widget-grid">
 			<?php
 			if ( ! empty( $widgets ) ) {
-				/**
-				 * @var Widget $widget
-				 */
 				foreach ( $widgets as $widget ) {
-					// Only show actual widgets.
-					if( is_subclass_of( $widget, Widget::class ) ) {
-						( new $widget )->render();
-					}
+					( new $widget )->render();
 				}
 			}
 			?>
