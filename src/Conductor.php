@@ -77,4 +77,35 @@ class Conductor{
 	public function settings(): Settings {
 		return $this->settings;
 	}
+
+
+	/**
+	 * Return the assets url for this Conductor instance
+	 * 
+	 * @return string
+	 */
+	public function get_assets_url( string $file_name ): string {
+		
+		// First, figure out which plugin launched this instance.
+		$parent_plugin = $this->get_parent_plugin();
+
+		// Then create the path to our assets.
+		$path = $parent_plugin . '/vendor/shop-maestro/conductor/assets/dist/' . $file_name;
+		return plugins_url( $path );
+	}
+	
+
+	/**
+	 * Which plugin launched the first (and thus _this_) version of Conductor?
+	 *
+	 * @return string
+	 */
+	public function get_parent_plugin(): string {
+		// Get our directory, remove the vendor folders.
+		$dir = __DIR__;
+		$dir = str_replace( '/vendor/shop-maestro/conductor/src', '', $dir );
+
+		// Get our main folder:
+	    return basename( $dir );
+	}
 }

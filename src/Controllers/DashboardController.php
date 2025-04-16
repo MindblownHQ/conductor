@@ -25,7 +25,6 @@ final class DashboardController extends Controller {
 
 	public function __construct() {
 		$this->dashboard_widgets();
-
 		parent::__construct();
 	}
 
@@ -44,7 +43,16 @@ final class DashboardController extends Controller {
 	 * A filter is present so custom widgets can be added to the dashboard.
 	 */
 	protected function registered_widgets(): array {
-		$widgets = \apply_filters( 'shop-maestro/conductor/registered_widgets', $this->default_widgets );
+
+		$widgets = $this->default_widgets;
+		foreach( conductor()->plugins()->get() as $plugin ){
+			if( isset( $plugin['widgets'] ) && !empty( $plugin['widgets'] ) ){
+				$widgets = array_merge( $plugin['widgets'], $widgets );
+			}
+		}
+
+
+		$widgets = \apply_filters( 'shop-maestro/conductor/registered_widgets', $widgets );
 		foreach ( $widgets as $key => $widget ) {
 			if ( ! is_subclass_of( $widget, Widget::class ) ) {
 				unset( $widgets[ $key ] );
@@ -60,16 +68,16 @@ final class DashboardController extends Controller {
 	 * Determine what widgets should be shown on the dashboard and which should be selectable to add.
 	 */
 	public function dashboard_widgets(): void {
-		$dashboard_widgets  = \get_option( 'shop-maestro/conductor/dashboard_widgets', $this->default_dashboard_widgets );
+		
+		// @todo, cross-reference this with the widgets in user_meta.
+		//$dashboard_widgets  = \get_user_meta( get_current_user_id(), 'conductor_dashboard_widgets', true );
+
 		$registered_widgets = $this->registered_widgets();
 
+		// Default: just show every widget (for now)
 		foreach ( $registered_widgets as $registered_widget ) {
 			$widget = new $registered_widget();
-			if ( ! in_array( $widget->get_id(), $dashboard_widgets, true ) ) {
-				$this->available_widgets[ $widget->get_id() ] = $widget->get_name();
-			} else {
-				$this->dashboard_widgets[] = $widget;
-			}
+			$this->dashboard_widgets[] = $widget;
 		}
 	}
 }

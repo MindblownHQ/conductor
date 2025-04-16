@@ -9,7 +9,7 @@ export default defineConfig({
         rollupOptions: {
             input: {
                 "dashboard": path.resolve(__dirname, "/scss/dashboard.scss"),
-				"grid": path.resolve(__dirname, "/js/grid.js"),
+				//"grid": path.resolve(__dirname, "/js/grid.js"),
             },
             output: {
 				entryFileNames: "js/[name].js",
