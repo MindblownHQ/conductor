@@ -12,9 +12,11 @@
 ?>
 
 <div class="widget" style="grid-column: span 2">
-	<div class="widget__header">
-		<h2 class="widget__title"><?php echo esc_html( $title ); ?></h2>
-	</div>
+	<?php if ( ! empty( $title ) ) { ?>
+		<div class="widget__header">
+			<h2 class="widget__title"><?php echo esc_html( $title ); ?></h2>
+		</div>
+	<?php } ?>
 	<div class="widget__content widget__content--with-padding">
 		<?php echo apply_filters( 'the_content', $content ); ?>
 	</div>
