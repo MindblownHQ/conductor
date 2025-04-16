@@ -20,8 +20,8 @@
 	},
 	"require": {
 		"php": ">=7.4",
-		"illuminate/collections": "^8.83",
-		"illuminate/database": "^8.83",
+		"illuminate/collections": "^12.9.1",
+		"illuminate/database": "^12.9.1",
 		"yahnis-elsts/plugin-update-checker": "^5.5"
 	}
 }
