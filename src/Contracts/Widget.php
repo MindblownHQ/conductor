@@ -14,6 +14,11 @@ abstract class Widget implements Interfaces\Widget {
 	/**
 	 * Widget title as displayed in the dashboard
 	 */
+	protected string $name = '';
+
+	/**
+	 * Widget title as displayed in the dashboard
+	 */
 	protected string $title = '';
 
 	/**
@@ -46,6 +51,17 @@ abstract class Widget implements Interfaces\Widget {
 	 */
 	public function set_id( string $id ): self {
 		$this->id = $id;
+
+		return $this;
+	}
+
+	/**
+	 * @param string $name
+	 *
+	 * @return $this
+	 */
+	public function set_name( string $name ): self {
+		$this->name = $name;
 
 		return $this;
 	}
@@ -89,6 +105,13 @@ abstract class Widget implements Interfaces\Widget {
 	 */
 	public function get_id(): string {
 		return $this->id;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_name(): string {
+		return $this->name;
 	}
 
 	/**

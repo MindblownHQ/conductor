@@ -10,10 +10,9 @@ class Introduction extends Widget {
 		$this->set_id( 'shop-maestro-intro' )
 			 ->set_title( __( 'Welcome to the Shop Maestro Suite', 'shop-maestro' ) )
 			 ->set_name( __( 'Introduction', 'shop-maestro' ) )
-			 ->set_content( $this->content() )
+			 ->set_content( $this->content() );
 	}
 
-	public function content() {
 	/**
 	 * Helper method to set the content of the dashboard widget.
 	 */
