@@ -1,0 +1,90 @@
+.widget {
+	background: var(--maestro--white);
+	height: 100%;
+	width: 100%;
+	box-shadow: rgba(0, 0, 0, 0.1) 0 0 0 1px;
+	border-radius: 8px;
+	overflow: hidden;
+	transition: box-shadow 0.2s;
+
+	&__header {
+		display: flex;
+		padding: var(--maestro--padding);
+
+		[draggable="true"] & {
+			cursor: move;
+		}
+	}
+
+	&__title {
+		margin: 0;
+	}
+
+	&__content {
+		&--with-padding {
+			padding: var(--maestro--padding);
+		}
+	}
+
+	&__resize-icon {
+		height: 20px;
+		width: 20px;
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		cursor: nwse-resize;
+
+		[data-resizable="false"] & {
+			color: var( --maestro--black--20 );
+			cursor: not-allowed;
+		}
+	}
+
+	&--dragged-over {
+		box-shadow: rgba(0, 0, 0, 0.25) 0 0 12px 2px;
+	}
+
+	&--is-dragging {
+		opacity: 0.5;
+		transform: scale(0.95);
+
+		&:after {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 100%;
+			width: 100%;
+			background-color: rgba( #fff, 0.5 );
+			backdrop-filter: blur( 2px );
+		}
+	}
+
+	&--swap {
+		transition: transform 0.3s ease;
+		animation: swap-widget 0.3s ease;
+	}
+
+	.dragging &[draggable="false"] {
+		&:before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 100%;
+			width: 100%;
+			backdrop-filter: blur( 2px );
+			background: {
+				color: rgba( 255, 255, 255, 0.5 );
+				image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" fill="none" viewBox="0 0 16 16"><path fill="%23000" fill-rule="evenodd" d="M4 6V4a4 4 0 1 1 8 0v2h2v10H2V6h2Zm2-2a2 2 0 1 1 4 0v2H6V4Zm1 9V9h2v4H7Z" clip-rule="evenodd"/></svg>');
+				position: center;
+				size: 40px;
+				repeat: no-repeat;
+			}
+		}
+	}
+
+	.widget-grid--edit & {
+		opacity: 0.5;
+	}
+}

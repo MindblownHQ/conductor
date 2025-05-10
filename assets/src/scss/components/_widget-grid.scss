@@ -1,0 +1,47 @@
+.widget-grid {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr) );
+	grid-auto-rows: 200px;
+	grid-gap: var(--maestro--gap);
+	position: relative;
+
+	&:before,
+	&:after {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: -1;
+		pointer-events: none;
+	}
+
+	&--edit:before {
+		background: repeating-linear-gradient(
+						to right,
+						rgba(0, 0, 255, 0.05),
+						rgba(0, 0, 255, 0.05) calc((100% - (var(--maestro--gap) * 2)) / 3),
+						transparent calc((100% - (var(--maestro--gap) * 2)) / 3),
+						transparent calc((100% - (var(--maestro--gap) * 2)) / 3 + var(--maestro--gap))
+		);
+	}
+
+	&--edit:after {
+
+		background: repeating-linear-gradient(
+						to bottom,
+						rgba(255, 0, 0, 0.05),
+						rgba(255, 0, 0, 0.05) 200px,
+						transparent 200px,
+						transparent calc(200px + var(--maestro--gap))
+		);
+	}
+}
+
+.grid-header {
+	display: flex;
+	gap: calc(var(--maestro--gap) / 2);
+	justify-content: flex-end;
+	margin: var(--maestro--margin);
+}

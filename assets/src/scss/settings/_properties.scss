@@ -1,0 +1,7 @@
+:root {
+	--maestro-column-gap: 1.6rem;
+	--maestro-column-min-width: 10rem;
+	--maestro-column-max-width: 30rem;
+	--maestro-container-max-width: calc(var(--maestro-column-max-width) * var(--maestro-max-columns) + var(--maestro-column-gap) * (var(--maestro-max-columns) - 1));
+	--maestro-max-columns: 3;
+}
